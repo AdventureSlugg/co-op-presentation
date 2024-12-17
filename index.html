@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End of Co-Op Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overscroll-behavior: none;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            text-align: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 55vw;
+            background-image: url(./assets/imgs/10980315-684714931.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        .terminal {
+            background-color: rgba(50, 76, 105, 0.9);
+            width: 45rem;
+            height: 25rem;
+            border-radius: .5rem;
+            margin: auto;
+            font-family: "Fira Code", monospace;
+        }
+
+        .terminal-top-bar {
+            background-color: rgba(34, 34, 34, 0.9);
+            width: 100%;
+            height: 2rem;
+            border-radius: .5rem .5rem 0 0;
+            display: flex;
+            align-items: left;
+            padding: 0 1rem;
+        }
+
+        .terminal-buttons svg {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-content {
+            color: rgb(255, 237, 187);
+            margin: 1rem;
+        }
+
+        .exe {
+            color: #28C940;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #28C940;
+            animation: typing 3s steps(30, end) forwards, blink-caret 0.7s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 30ch; }
+        }
+
+        @keyframes blink-caret {
+            50% { border-color: transparent; }
+        }
+
+        /* Parallax Setup */
+        [data-parallax="container"] {
+            height: 100vh;
+			width: 100vw;
+            overflow-x: hidden;
+            overflow-y: auto;
+            perspective: 1px;
+            perspective-origin: center;
+        }
+
+        [data-parallax="group"] {
+            position: relative;
+            height: 100vh;
+            transform-style: preserve-3d;
+        }
+
+        [data-parallax="layer"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform-origin: center;
+            background-size: cover;
+            background-position: center;
+			width: 100vw; /* Ensure full width */
+    		height: 100vh; /* Ensure full height */
+        }
+
+
+
+        /* Content Styling */
+        .content-box {
+            position: relative;
+            z-index: 5;
+            background-color: rgb(253, 253, 253);
+            color: rgb(48, 48, 48);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+			display: flex;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 
+                		0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #FFBD2E;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #EE3124;
+            color: white;
+            padding: 1rem;
+        }
+
+		.content {
+			max-width: 50rem;
+			margin: auto;
+		}
+
+		.bg-overview {
+			background: url(https://honeywell.scene7.com/is/image/honeywell/skyline-2880x1440:5-2-hero) no-repeat center center/cover;
+		}
+
+		.bg-about {
+			background: url(./assets/imgs/D4688F94-1F68-4A6E-88B0-C25C6D68658E_1_105_c.jpeg) no-repeat center center/cover;
+		}
+
+		.bg-accomplishments {
+			background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp4748437.jpg&f=1&nofb=1&ipt=e389ec122ae9a5d10363b70dbad2fe883c2fb9ecddf0a95709e712e29af4fb3d&ipo=images') no-repeat center center/cover;
+		}
+
+		.bg-thanks {
+			background: url('https://unsplash.com/photos/thank-you.jpg') no-repeat center center/cover;
+		}
+
+		/* Overview Section Styling */
+		.section-overview {
+			text-align: center;
+			margin: 2rem auto;
+		}
+
+		.section-overview h1 {
+			color: #0078D7;
+			text-transform: uppercase;
+			margin-bottom: 1rem;
+		}
+
+		.section-overview p {
+			margin-bottom: 1.5rem;
+			font-size: 1.1rem;
+			color: #333;
+		}
+
+		/* List and Badge Styling */
+		.badge-list {
+			list-style: none;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			align-items: center;
+		}
+
+		.badge-list li {
+			display: flex;
+			align-items: center;
+			background: #ffffff;
+			padding: 0.75rem 1rem;
+			border-radius: 50px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			font-size: 1.1rem;
+			color: #444;
+			width: 100%;
+			max-width: 400px;
+		}
+
+		.about-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+			color: #0078D7;
+		}
+
+		.about-me h1 {
+			font-size: 2rem;
+			margin-bottom: 1rem;
+			color: #0078D7;
+			text-transform: uppercase;
+		}
+
+		.about-me p {
+			font-size: 1.1rem;
+			color: #444;
+			line-height: 1.6;
+		}
+
+		.about-me strong {
+			color: #0078D7;
+			font-weight: bold;
+		}
+
+		/* Title Styling */
+		.accomplishments h1 {
+			color: #0078D7;
+			text-transform: uppercase;
+			font-size: 2rem;
+			margin-bottom: 2rem;
+		}
+
+		/* List Styling */
+		.accomplishments-list {
+			list-style: none;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			align-items: flex-start;
+		}
+
+		.accomplishments-list li {
+			display: flex;
+			align-items: center;
+			background: #f9f9f9;
+			padding: 1rem 1.5rem;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			transition: box-shadow 0.3s ease;
+			width: 32rem;
+		}
+
+		/* Badge Styling */
+		.badge {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.5rem;
+			width: 3rem;
+			height: 3rem;
+			border-radius: 50%;
+			background-color: #0078D7;
+			color: white;
+			margin-right: 1rem;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+			transition: background-color 0.3s ease;
+		}
+
+
+		/* Text Styling */
+		.accomplishment-text {
+			font-size: 1rem;
+			color: #333;
+			text-align: left;
+		}
+
+		.accomplishment-text strong {
+			color: #0078D7;
+			font-size: 1.1rem;
+		}
+
+		/* Parallax Background for My Process */
+		.bg-process {
+			background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhelp.gardeningexpress.co.uk%2Fwp-content%2Fuploads%2F2023%2F04%2FUntitled-design-1-1024x576.png&f=1&nofb=1&ipt=a9fa6e37b8b10e62702f9a4239d19f810749e1bc08241af83f1a5bae088fa85d&ipo=images') no-repeat center center;
+			background-size: cover;
+		}
+
+		/* My Process Section */
+		.process {
+			text-align: center;
+		}
+
+		.process h1 {
+			color: #0078D7;
+			font-size: 2.5rem;
+			text-transform: uppercase;
+			margin-bottom: 1.5rem;
+		}
+
+		/* Process Steps Styling */
+		.process-steps {
+			list-style: none;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			align-items: center;
+		}
+
+		.process-steps li {
+			display: flex;
+			align-items: center;
+			background: #f9f9f9;
+			padding: 1rem 1.5rem;
+			border-radius: 8px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			width: 100%;
+			max-width: 500px;
+			transition: box-shadow 0.3s ease, transform 0.3s ease;
+		}
+
+
+		/* Step Icon Styling */
+		.step-icon {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 2rem;
+			width: 3rem;
+			height: 3rem;
+			border-radius: 50%;
+			background: #0078D7;
+			color: white;
+			margin-right: 1rem;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+			transition: background 0.3s ease;
+		}
+
+		/* Step Text Styling */
+		.step-text {
+			text-align: left;
+			color: #333;
+			font-size: 1.1rem;
+			line-height: 1.5;
+		}
+
+		.step-text strong {
+			color: #0078D7;
+			font-size: 1.2rem;
+		}
+
+		/* Background for the Section */
+		.bg-enjoyed {
+			background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fs1.picswalls.com%2Fwallpapers%2F2016%2F03%2F29%2Fbeautiful-nature-high-definition_042323787_304.jpg&f=1&nofb=1&ipt=6763244a30beaeda99b1844fb7bfa4f2578501129fdf3f81b536f2f26908d83f&ipo=images') no-repeat center center;
+			background-size: cover;
+		}
+
+		/* Combined Content Styling */
+		.combined {
+			text-align: center;
+		}
+
+		.combined h1 {
+			font-size: 2.5rem;
+			color: #0078D7;
+			margin-bottom: 2rem;
+			text-transform: uppercase;
+		}
+
+		/* Cards Container */
+		.combined-cards {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1.5rem;
+			max-width: 800px;
+			margin: auto;
+		}
+
+		.card {
+			background: #f9f9f9;
+			border-radius: 10px;
+			padding: 1.5rem;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			display: flex;
+			align-items: flex-start;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		/* Card Icons */
+		.card-icon {
+			font-size: 2rem;
+			background: #0078D7;
+			color: white;
+			border-radius: 50%;
+			width: 3rem;
+			height: 3rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-right: 1rem;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+		}
+
+		/* Card Text */
+		.card-text {
+			text-align: left;
+			color: #333;
+			font-size: 1.1rem;
+		}
+
+		.card-text strong {
+			color: #0078D7;
+			font-size: 1.2rem;
+		}
+
+		/* Full-Width Recommendation */
+		.recommendation {
+			grid-column: span 2;
+			background: #fff7e6; /* Light yellow for emphasis */
+		}
+		
+		/* Background for Gratitude Section */
+		.bg-gratitude {
+			background: url(./assets/imgs/10980315-684714931.jpg) no-repeat center center;
+			background-size: cover;
+		}
+
+		/* Gratitude Section */
+		.gratitude {
+			text-align: center;
+		}
+
+		.gratitude h1 {
+			color: #0078D7;
+			font-size: 2.5rem;
+			text-transform: uppercase;
+			margin-bottom: 2rem;
+		}
+
+		/* Gratitude Cards */
+		.gratitude-cards {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1.5rem;
+			max-width: 800px;
+			margin: auto;
+		}
+
+		/* Full-Width Card for "Everyone" */
+		.full-width {
+			grid-column: span 2;
+			background: #fff7e6; /* Light yellow for emphasis */
+			text-align: center;
+		}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Parallax Container -->
+    <div data-parallax="container">
+		<div data-parallax="group">
+			<!-- Parallax Background Layer -->
+			<div class="bg-header" data-parallax="layer" data-parallax-speed="slow"></div>
+		
+			<!-- Header Content Layer -->
+			<header data-parallax="layer" data-parallax-speed="none">
+				<div class="terminal">
+					<div class="terminal-top-bar">
+						<div class="terminal-buttons">
+							<svg width="50" height="12">
+								<circle cx="8" cy="6" r="5" fill="#FF5F57" />
+								<circle cx="20" cy="6" r="5" fill="#FFBD2E" />
+								<circle cx="32" cy="6" r="5" fill="#28C940" />
+							</svg>
+						</div>
+					</div>
+					<div class="terminal-content">
+						<p>zoebingham@honeywell % cd Experiences/</p>
+						<p>zoebingham@honeywell Experiences % cd spring-fall-2024</p>
+						<p>zoebingham@honeywell spring-fall-2024 % <span class="exe">./start-final-presentation.sh</span></p>
+					</div>
+				</div>
+			</header>
+		</div>
+		
+        <!-- Group 1 -->
+        <div data-parallax="group">
+            <div class="bg-overview" data-parallax="layer" data-parallax-speed="slow"></div>
+            <div class="content-box">
+				<div class="content">
+					<div class="section-overview">
+						<h1>Overview</h1>
+						<p>Here’s what we’ll cover today:</p>
+						<ul class="badge-list">
+							<li><span class="badge">🌄</span> About Me</li>
+							<li><span class="badge">🏆</span> Accomplishments</li>
+							<li><span class="badge">🧩</span> Problem-Solving Approach</li>
+							<li><span class="badge">✨</span> Highlights</li>
+						</ul>
+					</div>
+				</div>
+            </div>
+        </div>
+
+        <!-- Group 2 -->
+        <div data-parallax="group">
+            <div class="bg-about" data-parallax="layer" data-parallax-speed="slower"></div>
+            <div class="content-box">
+				<div class="content about-me">
+					<h1>About Me</h1>
+
+					<div class="about-icon">🎓</div>
+					<p>
+						<strong>Graduating in Software Engineering</strong> at RIT.<br>
+						<strong>Part-time Co-Op</strong> on the VRx team.<br>
+						An <strong>adventure enthusiast</strong> who loves exploring new challenges.
+					</p>
+				</div>
+            </div>
+        </div>
+
+		<!-- Group 3 -->
+        <div data-parallax="group">
+            <div class="bg-accomplishments" data-parallax="layer" data-parallax-speed="slowest"></div>
+            <div class="content-box">
+				<div class="content accomplishments">
+					<h1>Accomplishments</h1>
+					<ul class="accomplishments-list">
+						<li>
+							<span class="badge">🏆</span>
+							<div class="accomplishment-text">
+								<strong>45 Pull Requests</strong><br>
+								Successfully contributed features, fixes, and improvements.
+							</div>
+						</li>
+						<li>
+							<span class="badge">🚀</span>
+							<div class="accomplishment-text">
+								<strong>Vue 3 Migration Lead</strong><br>
+								Spearheaded migration to modernize and optimize the codebase.
+							</div>
+						</li>
+						<li>
+							<span class="badge">📘</span>
+							<div class="accomplishment-text">
+								<strong>Improved Onboarding Process</strong><br>
+								Developed guides to streamline new developer integration.
+							</div>
+						</li>
+					</ul>
+				</div>
+            </div>
+        </div>
+
+		<div data-parallax="group">
+			<!-- Parallax Background -->
+			<div class="bg-process" data-parallax="layer" data-parallax-speed="slowest"></div>
+		
+			<!-- Content Box -->
+			<div class="content-box">
+				<div class="content process">
+					<h1>My Process</h1>
+					<ul class="process-steps">
+						<li>
+							<span class="step-icon">🧐</span>
+							<div class="step-text">
+								<strong>1. Understand</strong><br>
+								Break down the problem and ask clarifying questions.
+							</div>
+						</li>
+						<li>
+							<span class="step-icon">🔍</span>
+							<div class="step-text">
+								<strong>2. Investigate</strong><br>
+								Explore the codebase and gather leads.
+							</div>
+						</li>
+						<li>
+							<span class="step-icon">📝</span>
+							<div class="step-text">
+								<strong>3. Plan</strong><br>
+								Strategize the best solution before coding.
+							</div>
+						</li>
+						<li>
+							<span class="step-icon">💻</span>
+							<div class="step-text">
+								<strong>4. Implement</strong><br>
+								Turn the plan into clean, functional code.
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	
+		<div data-parallax="group">
+			<!-- Parallax Background -->
+			<div class="bg-enjoyed" data-parallax="layer" data-parallax-speed="slowest"></div>
+		
+			<!-- Combined Content Box -->
+			<div class="content-box">
+				<div class="content combined">
+					<h1>What I Enjoyed & Recommendations</h1>
+					<div class="combined-cards">
+						<!-- Card 1: Learning Opportunities -->
+						<div class="card">
+							<span class="card-icon">📚</span>
+							<div class="card-text">
+								<strong>Learning Opportunities</strong><br>
+								I gained immense knowledge and skills throughout this experience.
+							</div>
+						</div>
+		
+						<!-- Card 2: Volunteering -->
+						<div class="card">
+							<span class="card-icon">🤝</span>
+							<div class="card-text">
+								<strong>Giving Back</strong><br>
+								Opportunities to volunteer and contribute to the community.
+							</div>
+						</div>
+		
+						<!-- Card 3: Office Environment -->
+						<div class="card">
+							<span class="card-icon">🏢</span>
+							<div class="card-text">
+								<strong>Supportive Office Environment</strong><br>
+								A lively, collaborative atmosphere made work enjoyable.
+							</div>
+						</div>
+		
+						<!-- Card 4: Recommendations -->
+						<div class="card recommendation">
+							<span class="card-icon">📝</span>
+							<div class="card-text">
+								<strong>Recommendation</strong><br>
+								Continue enhancing developer documentation to improve onboarding and team collaboration.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div data-parallax="group">
+			<!-- Parallax Background -->
+			<div class="bg-gratitude" data-parallax="layer" data-parallax-speed="slowest"></div>
+		
+			<!-- Gratitude Content Box -->
+			<div class="content-box">
+				<div class="content gratitude">
+					<h1>Gratitude</h1>
+					<div class="gratitude-cards">
+						<!-- Card 1: Bobby Beagan -->
+						<div class="card">
+							<span class="card-icon">🧑‍💻</span>
+							<div class="card-text">
+								<strong>Bobby Beagan</strong><br>
+								For your technical mentorship, guidance, and support.
+							</div>
+						</div>
+		
+						<!-- Card 2: Paul Wisotzke & Rich Garmon -->
+						<div class="card">
+							<span class="card-icon">🤝</span>
+							<div class="card-text">
+								<strong>Paul Wisotzke & Rich Garmon</strong><br>
+								For fostering a collaborative and positive environment.
+							</div>
+						</div>
+		
+						<!-- Card 3: VRx Team -->
+						<div class="card">
+							<span class="card-icon">😂</span>
+							<div class="card-text">
+								<strong>VRx Team</strong><br>
+								For making me laugh and keeping things fun—AI images included!
+							</div>
+						</div>
+		
+						<!-- Card 4: Co-Ops -->
+						<div class="card">
+							<span class="card-icon">🌟</span>
+							<div class="card-text">
+								<strong>The Co-Ops</strong><br>
+								For building a fun, supportive atmosphere in the office.
+							</div>
+						</div>
+		
+						<!-- Card 5: Everyone -->
+						<div class="card full-width">
+							<span class="card-icon">❤️</span>
+							<div class="card-text">
+								<strong>To Everyone</strong><br>
+								Thank you for making this experience so valuable. The people truly make LenelS2 a great company.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+    </div>
+
+		
+
+    <!-- Footer -->
+    <footer>
+        <p>End of co-op presentation: Zoe Bingham</p>
+    </footer>
+</body>
+</html>
